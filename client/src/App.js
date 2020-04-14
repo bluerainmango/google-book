@@ -4,6 +4,7 @@ import SearchPage from "./pages/search/searchPage.component";
 import SavedPage from "./pages/saved/savedPage.component";
 import Navbar from "./components/navbar/navbar.component";
 import Header from "./components/header/header.component";
+import ContentBox from "./components/contentbox/contentBox.component";
 
 import "./App.css";
 
@@ -13,8 +14,12 @@ function App() {
       <Navbar />
       <Header />
       <Switch>
-        <Route exact path="/" component={SearchPage} />
-        <Route path="/saved" component={SavedPage} />
+        <Route
+          exact
+          path="/"
+          render={(props) => <ContentBox {...props} isSearch />}
+        />
+        <Route path="/saved" render={(props) => <ContentBox {...props} />} />
       </Switch>
     </div>
   );
