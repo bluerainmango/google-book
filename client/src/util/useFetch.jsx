@@ -3,17 +3,23 @@ import axios from "axios";
 
 //! Fetch books from Google or DB
 const useFetch = (url) => {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState("");
 
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await axios.get(url);
-      const dataArr = res.data;
+    if (url) {
+      const fetchData = async () => {
+        try {
+          const res = await axios.get(url);
+          const dataArr = res.data;
 
-      setData(dataArr);
-    };
-    fetchData();
-  }, []);
+          setData(dataArr);
+        } catch (err) {
+          console.log("🚨", err);
+        }
+      };
+      fetchData();
+    }
+  }, [url]);
 
   return data;
 };
