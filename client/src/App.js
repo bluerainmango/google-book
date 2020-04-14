@@ -1,20 +1,23 @@
-import React, { Component } from "react";
-import logo from "./logo.svg";
+import React from "react";
+import { Switch, Route } from "react-router-dom";
+import SearchPage from "./pages/search/searchPage.component";
+import SavedPage from "./pages/saved/savedPage.component";
+import Navbar from "./components/navbar/navbar.component";
+import Header from "./components/header/header.component";
+
 import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <div className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h2>Welcome to React</h2>
-      </div>
-      <p className="App-intro">
-        To get started, edit <code>src/App.js</code> and save to reload.
-      </p>
+      <Navbar />
+      <Header />
+      <Switch>
+        <Route exact path="/" component={SearchPage} />
+        <Route path="/saved" component={SavedPage} />
+      </Switch>
     </div>
   );
 }
-
 
 export default App;
