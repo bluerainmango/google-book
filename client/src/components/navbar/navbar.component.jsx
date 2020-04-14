@@ -36,10 +36,10 @@ export default function Navbar() {
           <Typography variant="h6" color="inherit">
             Google Books
           </Typography>
-          <Link to="/" class="link">
+          <Link to="/" className="link">
             Search
           </Link>
-          <Link to="/saved" class="link">
+          <Link to="/saved" className="link">
             Saved
           </Link>
         </Toolbar>
