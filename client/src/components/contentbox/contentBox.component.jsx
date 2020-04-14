@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useMemo } from "react";
+import axios from "axios";
 import Searchbox from "../searchbox/searchbox.component";
 import Bookswrapper from "../bookswrapper/bookswrapper.component";
 import useFetch from "../../util/useFetch";
-import axios from "axios";
+import Bookbox from "../bookbox/bookbox.component";
 // search data: search query, AJAX data(books)
 // DB data: save, delete
 // props: isSearch, save or delete BTN, bookwrapper title
@@ -12,7 +13,7 @@ const ContentBox = ({ isSearch }) => {
   //! State
   const [searchQuery, setSearchQuery] = useState("");
   const [fetchUrl, setFetchUrl] = useState(null);
-
+  const [books, setBooks] = useState(null);
   //! Dinamically renders <Searchbox> based on pages("/" or "/saved").
   const searchboxAccessory = useMemo(() => {
     return isSearch && <Searchbox onChange={setSearchQuery} />;
@@ -33,15 +34,32 @@ const ContentBox = ({ isSearch }) => {
     console.log("🔗 link, query", fetchUrl, searchQuery);
   }, [searchQuery, isSearch]);
 
+  // search query === "" : no data || search query !== "" || saved(!isSearch)
   const data = useFetch(fetchUrl);
-
-  // search query === "" || search query !== "" || saved(!isSearch)
+  //   setBooks(data.items);
   console.log("🥰data", data.items);
+
+  //   const books = data.items.filter(book => book.id)
+  let uniqueBooksArr = [];
+  if (data) {
+    // const booksArr = data.items;
+    uniqueBooksArr = [
+      ...new Map(data.items.map((item) => [item.id, item])).values(),
+    ];
+    console.log("⛳️", uniqueBooksArr.length);
+  }
 
   return (
     <div>
       {/* if search : query, google fetch, save to db */}
-      <Bookswrapper title={"title"} accessory={searchboxAccessory}>
+      <Bookswrapper title={"title"} accessory={searchboxAccessory} books={data}>
+        {data && isSearch
+          ? uniqueBooksArr.map((book) => (
+              <Bookbox key={book.id} {...book.volumeInfo} />
+            ))
+          : data && !isSearch
+          ? data.map((book) => <Bookbox key={book.id} id={book.id} {...book} />)
+          : ""}
         {/* bookboxs(ajax from search || DB data) => data.map */}
         {/* <p>{books}</p>
         {console.log("🥰", books)} */}
