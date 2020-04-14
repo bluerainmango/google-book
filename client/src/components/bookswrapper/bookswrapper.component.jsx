@@ -1,7 +1,8 @@
 import React from "react";
 
-const Bookswrapper = () => {
-  return <div></div>;
+const Bookswrapper = (props) => {
+  console.log("props:", props);
+  return <div>{props.accessory}</div>;
 };
 
 export default Bookswrapper;

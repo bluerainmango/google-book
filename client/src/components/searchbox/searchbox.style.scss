@@ -1,0 +1,13 @@
+.searchBtn {
+  transform: translateY(10px);
+}
+.searchForm {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: 0 auto;
+
+  .MuiInputLabel-formControl {
+    text-align: center !important;
+  }
+}
