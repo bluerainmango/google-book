@@ -12,14 +12,13 @@ const ContentBox = ({ isSearch }) => {
   //! State
   const [searchQuery, setSearchQuery] = useState("");
   const [fetchUrl, setFetchUrl] = useState(null);
-  const [books, setBooks] = useState(null);
 
   //! Dinamically renders <Searchbox> based on pages("/" or "/saved").
   const searchboxAccessory = useMemo(() => {
-    return isSearch && <Searchbox setSeachQuery={setSearchQuery} />;
+    return isSearch && <Searchbox onChange={setSearchQuery} />;
   }, [isSearch]);
 
-  // fetch google or db
+  //! Fetch book data from google or mongoDB
   useEffect(() => {
     if (searchQuery) {
       setFetchUrl(
@@ -34,10 +33,10 @@ const ContentBox = ({ isSearch }) => {
     console.log("🔗 link, query", fetchUrl, searchQuery);
   }, [searchQuery, isSearch]);
 
-  const { data } = useFetch(fetchUrl);
+  const data = useFetch(fetchUrl);
 
   // search query === "" || search query !== "" || saved(!isSearch)
-  console.log("🥰222", data);
+  console.log("🥰data", data.items);
 
   return (
     <div>
