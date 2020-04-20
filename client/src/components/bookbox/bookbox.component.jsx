@@ -1,9 +1,10 @@
 import React from "react";
+import Button from "@material-ui/core/Button";
 
 const Bookbox = (props) => {
   return (
     <div>
-      {console.log("🏉 props", props, props.props)}
+      {console.log("🏉 props", props)}
       {/* <img style={{ src: props.imageLinks.thumbnail }}></img> */}
       <img
         src={
@@ -14,8 +15,22 @@ const Bookbox = (props) => {
       ></img>
       <div>
         <div className="bookbox-button">
-          <button> View</button>
-          hello
+          <Button
+            variant="outlined"
+            color="primary"
+            href={props.infoLink}
+            target="_blank"
+          >
+            View
+          </Button>
+          <Button
+            variant="outlined"
+            color="secondary"
+            href={props.infoLink}
+            target="_blank"
+          >
+            Save
+          </Button>
         </div>
         <h4>{props.title}</h4>
         <p>

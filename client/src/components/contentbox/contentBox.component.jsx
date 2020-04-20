@@ -14,6 +14,7 @@ const ContentBox = ({ isSearch }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [fetchUrl, setFetchUrl] = useState(null);
   const [books, setBooks] = useState(null);
+
   //! Dinamically renders <Searchbox> based on pages("/" or "/saved").
   const searchboxAccessory = useMemo(() => {
     return isSearch && <Searchbox onChange={setSearchQuery} />;
@@ -28,7 +29,7 @@ const ContentBox = ({ isSearch }) => {
     }
 
     if (!searchQuery && !isSearch) {
-      setFetchUrl(`http://localhost:3000/api/books`);
+      setFetchUrl(`/api/books`);
     }
 
     console.log("🔗 link, query", fetchUrl, searchQuery);
@@ -40,6 +41,8 @@ const ContentBox = ({ isSearch }) => {
   console.log("🥰data", data.items);
 
   //   const books = data.items.filter(book => book.id)
+
+  //! Filter out duplicated book
   let uniqueBooksArr = [];
   if (data) {
     // const booksArr = data.items;
