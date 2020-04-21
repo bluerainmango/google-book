@@ -13,7 +13,7 @@
     margin-left: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: flex-start;
     position: relative;
     width: 100%;
@@ -67,14 +67,13 @@
 
     .bookbox-desc {
       text-align: start;
-      //   word-wrap: break-word;
       padding-right: 10px;
     }
 
     @media only screen and (max-width: 600px) {
       .bookbox-desc {
         text-align: center;
-        //   word-wrap: break-word;
+
         padding: 10px;
       }
     }

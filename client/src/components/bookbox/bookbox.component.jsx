@@ -40,6 +40,7 @@ const Bookbox = (props) => {
             ? props.image
             : "https://books.google.com/googlebooks/images/no_cover_thumb.gif"
         }
+        alt={`book-cover-${props.title}`}
       ></img>
       <div className="bookbox-text">
         <div className="bookbox-top">
