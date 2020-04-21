@@ -8,11 +8,10 @@ const bookController = require("./controllers/bookController");
 const PORT = process.env.PORT || 3001;
 const app = express();
 
-// Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Serve up static assets (usually on heroku)
+// Serve up static assets
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
@@ -32,13 +31,12 @@ mongoose
     console.log("🍑 Succeeded DB connection");
   });
 
-// Define API routes here
+// API routes
 app.get("/api/books", bookController.getAllbooks);
 app.post("/api/books", bookController.createBook);
 app.delete("/api/books/:id", bookController.deleteBook);
 
 // Send every other request to the React app
-// Define any API routes before this runs
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });

@@ -30,5 +30,3 @@ const useFetch = (url) => {
 };
 
 export default useFetch;
-// export const postAbook = () => {};
-// export const deleteAbook = () => {};

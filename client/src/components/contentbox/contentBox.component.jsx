@@ -14,9 +14,9 @@ const ContentBox = ({ isSearch, searchQueryInit }) => {
     return isSearch && <Searchbox onChange={setSearchQuery} />;
   }, [isSearch]);
 
-  //! Fetch book data from google or mongoDB
+  //! Set fetch url and query according to 3 cases
   useEffect(() => {
-    //* 1. Google books
+    //* 1. Search page with Google books
     if (isSearch && searchQuery) {
       setFetchUrl(
         `https://www.googleapis.com/books/v1/volumes?q=${searchQuery}`
@@ -24,13 +24,13 @@ const ContentBox = ({ isSearch, searchQueryInit }) => {
       setSearchQuery("");
     }
 
-    //* 2. Saved books
+    //* 2. Saved page with MongoDB data
     if (!isSearch) {
       setFetchUrl(`/api/books`);
       setSearchQuery("");
     }
 
-    //* 3. Reset search result(when returning back to search page from saved page)
+    //* 3. Search page with no search result(when returning back to search page from saved page)
     if (isSearch && !searchQuery) {
       setFetchUrl("");
     }
