@@ -6,7 +6,7 @@ exports.getAllbooks = async (req, res, next) => {
   res.status(200).json({
     status: "success",
     message: "Successfully got all books",
-    data: books,
+    items: books,
   });
 };
 

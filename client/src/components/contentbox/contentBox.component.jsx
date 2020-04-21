@@ -1,73 +1,79 @@
 import React, { useState, useEffect, useMemo } from "react";
-import axios from "axios";
 import Searchbox from "../searchbox/searchbox.component";
 import Bookswrapper from "../bookswrapper/bookswrapper.component";
 import useFetch from "../../util/useFetch";
 import Bookbox from "../bookbox/bookbox.component";
-// search data: search query, AJAX data(books)
-// DB data: save, delete
-// props: isSearch, save or delete BTN, bookwrapper title
-const ContentBox = ({ isSearch }) => {
-  //   const saveBtn = () => <button onClick={fetchGoogle}>Save</button>;
 
+const ContentBox = ({ isSearch, searchQueryInit }) => {
   //! State
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(searchQueryInit);
   const [fetchUrl, setFetchUrl] = useState(null);
-  const [books, setBooks] = useState(null);
 
   //! Dinamically renders <Searchbox> based on pages("/" or "/saved").
   const searchboxAccessory = useMemo(() => {
     return isSearch && <Searchbox onChange={setSearchQuery} />;
   }, [isSearch]);
 
-  const handleSaveBook = async () => {};
-
   //! Fetch book data from google or mongoDB
   useEffect(() => {
-    if (searchQuery) {
+    //* 1. Google books
+    if (isSearch && searchQuery) {
       setFetchUrl(
         `https://www.googleapis.com/books/v1/volumes?q=${searchQuery}`
       );
+      setSearchQuery("");
     }
 
-    if (!searchQuery && !isSearch) {
+    //* 2. Saved books
+    if (!isSearch) {
       setFetchUrl(`/api/books`);
+      setSearchQuery("");
     }
 
-    console.log("🔗 link, query", fetchUrl, searchQuery);
+    //* 3. Reset search result(when returning back to search page from saved page)
+    if (isSearch && !searchQuery) {
+      setFetchUrl("");
+    }
   }, [searchQuery, isSearch]);
 
-  // search query === "" : no data || search query !== "" || saved(!isSearch)
+  //! Fetch data
   const data = useFetch(fetchUrl);
-  //   setBooks(data.items);
-  console.log("🥰data", data.items);
+  console.log("🥰data", data);
 
-  //   const books = data.items.filter(book => book.id)
-
-  //! Filter out duplicated book
+  //! Filter out duplicated book for searched books
   let uniqueBooksArr = [];
-  if (data) {
-    // const booksArr = data.items;
-    uniqueBooksArr = [
-      ...new Map(data.items.map((item) => [item.id, item])).values(),
-    ];
-    console.log("⛳️", uniqueBooksArr.length);
+  if (data && isSearch) {
+    if (data) {
+      uniqueBooksArr = [
+        ...new Map(data.items.map((item) => [item.id, item])).values(),
+      ];
+    }
+  } else {
   }
 
   return (
     <div>
-      {/* if search : query, google fetch, save to db */}
+      {console.log(
+        "🥜isSearch:",
+        isSearch,
+        "data:",
+        data,
+        "query:",
+        searchQuery,
+        "fetchUrl:",
+        fetchUrl
+      )}
       <Bookswrapper title={"title"} accessory={searchboxAccessory} books={data}>
-        {data && isSearch
+        {/* Cases: 1.search page with no data 2.search page with query result, 3.saved page */}
+        {isSearch && data
           ? uniqueBooksArr.map((book) => (
               <Bookbox key={book.id} {...book.volumeInfo} />
             ))
-          : data && !isSearch
-          ? data.map((book) => <Bookbox key={book.id} id={book.id} {...book} />)
+          : !isSearch && data
+          ? data.items.map((book) => (
+              <Bookbox key={book.id} id={book.id} {...book} />
+            ))
           : ""}
-        {/* bookboxs(ajax from search || DB data) => data.map */}
-        {/* <p>{books}</p>
-        {console.log("🥰", books)} */}
       </Bookswrapper>
     </div>
   );

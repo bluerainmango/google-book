@@ -17,9 +17,14 @@ function App() {
         <Route
           exact
           path="/"
-          render={(props) => <ContentBox {...props} isSearch />}
+          render={(props) => (
+            <ContentBox {...props} isSearch searchQueryInit="" />
+          )}
         />
-        <Route path="/saved" render={(props) => <ContentBox {...props} />} />
+        <Route
+          path="/saved"
+          render={(props) => <ContentBox {...props} isSearch={false} />}
+        />
       </Switch>
     </div>
   );

@@ -34,8 +34,10 @@ const Bookbox = (props) => {
       <img
         style={{ width: "128px" }}
         src={
-          props.imageLinks || props.image
-            ? props.imageLinks.thumbnail || props.image
+          props.imageLinks
+            ? props.imageLinks.thumbnail
+            : props.image
+            ? props.image
             : "https://books.google.com/googlebooks/images/no_cover_thumb.gif"
         }
       ></img>
@@ -47,7 +49,9 @@ const Bookbox = (props) => {
               <span className="bookbox-authors">
                 {`Written By `}
                 {props.authors.map((author, i, arr) => (
-                  <span key={`${props.infoLink || props.link}-${i}`}>
+                  <span
+                    key={`${props.infoLink ? props.infoLink : props.link}-${i}`}
+                  >
                     {i !== arr.length - 1 ? `${author}, ` : `${author}`}
                   </span>
                 ))}
@@ -58,7 +62,7 @@ const Bookbox = (props) => {
             <Button
               variant="outlined"
               color="primary"
-              href={props.infoLink || props.link}
+              href={props.infoLink ? props.infoLink : props.link}
               target="_blank"
             >
               View
