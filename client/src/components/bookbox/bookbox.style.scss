@@ -1,8 +1,10 @@
 .bookbox {
   display: flex;
   width: 80%;
-  margin: 0 auto;
+  margin: 10px auto;
+  padding: 5px 0;
   border: 1px solid rgb(202, 202, 202);
+  color: rgb(77, 77, 77);
 
   img {
     object-fit: contain;
@@ -43,7 +45,7 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      margin-bottom: 0;
+      margin-bottom: 10px;
 
       .bookbox-title--main {
         font-size: larger;
@@ -62,19 +64,34 @@
       //   position: absolute;
       //   right: 20px;
       //   top: 10px;
-      margin: 5px;
+      // margin: 5px;
+      margin-top: -9px;
+      margin-right: 4px;
+      width: 140px;
+      display: flex;
+      justify-content: space-between;
     }
 
     .bookbox-desc {
       text-align: start;
       padding-right: 10px;
+      // white-space: nowrap;
+      // overflow: hidden;
+      // text-overflow: ellipsis;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
     }
 
     @media only screen and (max-width: 600px) {
       .bookbox-desc {
         text-align: center;
-
-        padding: 10px;
+        // padding: 10px;
+      }
+      .bookbox-button {
+        margin-top: 5px;
       }
     }
   }

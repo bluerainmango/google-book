@@ -5,20 +5,28 @@ import InputBase from "@material-ui/core/InputBase";
 import IconButton from "@material-ui/core/IconButton";
 import SearchIcon from "@material-ui/icons/Search";
 
+import "./searchbox.style.scss";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: "2px 4px",
     display: "flex",
     alignItems: "center",
-    width: 200,
-    margin: "10px auto",
+    "max-width": "79.7%",
+    margin: "20px auto",
+    background: "linear-gradient(90deg, #3a47d5 0%, #00d2ff 100%) !important",
+    // transform: "translateY(50%)",
   },
   input: {
     marginLeft: theme.spacing(1),
     flex: 1,
+    width: "350px",
   },
   iconButton: {
     padding: "10px",
+    "margin-right": "auto",
+    // color: "#fff",
+    // justifyContent: "flex-start",
   },
 }));
 
@@ -40,13 +48,12 @@ export default function CustomizedInputBase(props) {
   console.log("⚽️", props);
   return (
     <Paper component="form" className={classes.root} onSubmit={handleSubmit}>
-      <div>
-        <InputBase
-          className={classes.input}
-          placeholder="Search"
-          inputProps={{ "aria-label": "search books" }}
-        />
-      </div>
+      <InputBase
+        className={classes.input}
+        placeholder="What do you feel to search today? 💭"
+        inputProps={{ "aria-label": "search books", autoFocus: true }}
+      />
+
       <IconButton
         type="submit"
         className={classes.iconButton}

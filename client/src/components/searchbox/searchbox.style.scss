@@ -2,12 +2,36 @@
   transform: translateY(10px);
 }
 .searchForm {
-  display: flex;
-  flex-direction: column;
-  width: 50%;
-  margin: 0 auto;
+  // display: flex;
+  // flex-direction: column;
+  // width: 50%;
+  // margin: 0 auto;
 
   .MuiInputLabel-formControl {
-    text-align: center !important;
+    // text-align: right !important;
   }
+
+  // animation: name duration timing-function delay iteration-count direction fill-mode;
+  animation-name: searchbar;
+  animation-duration: 5s;
 }
+
+.MuiInputBase-input {
+  text-align: center;
+  font-weight: lighter !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+// form {
+//   animation-name: searchbar;
+//   animation-duration: 5s;
+// }
+
+// @keyframes searchbar {
+//   from {
+//     transform: translateY(0px);
+//   }
+//   to {
+//     transform: translateY(50%);
+//   }
+// }

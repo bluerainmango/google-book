@@ -25,7 +25,7 @@ export default function Navbar() {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar variant="dense">
-          <Typography variant="h6" color="inherit">
+          <Typography variant="h6" color="inherit" className="logo">
             Google Books
           </Typography>
           <Link to="/" className="link">

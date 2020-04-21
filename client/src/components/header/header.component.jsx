@@ -8,7 +8,7 @@ export default function Header() {
   return (
     <header className="header">
       <h1>React Google Books Search</h1>
-      <p>Search for and Save books of Interest</p>
+      {/* <p>Search for and Save books of Interest</p> */}
     </header>
   );
 }
