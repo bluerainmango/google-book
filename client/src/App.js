@@ -16,9 +16,7 @@ function App() {
         <Route
           exact
           path="/"
-          render={(props) => (
-            <ContentBox {...props} isSearch searchQueryInit="" />
-          )}
+          render={(props) => <ContentBox {...props} isSearch />}
         />
         <Route
           path="/saved"

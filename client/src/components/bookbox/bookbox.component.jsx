@@ -5,6 +5,7 @@ import axios from "axios";
 import "./bookbox.style.scss";
 
 const Bookbox = (props) => {
+  //* Save button event handler
   const handleSaveOnClick = async (e) => {
     const data = e.target.closest("button").getAttribute("data");
     const {
@@ -27,10 +28,19 @@ const Bookbox = (props) => {
     console.log(result);
   };
 
+  //* Delete button event handler
+  const handleDeleteOnClick = async (e) => {
+    const id = e.target.closest("button").getAttribute("id");
+    console.log("🍭", id);
+    const result = await axios.delete(`/api/books/${id}`);
+
+    console.log(result);
+    window.location.reload();
+  };
+
   return (
     <div className="bookbox">
       {console.log("🏉 props", props)}
-      {/* <img style={{ src: props.imageLinks.thumbnail }}></img> */}
       <img
         style={{ width: "128px" }}
         src={
@@ -68,15 +78,27 @@ const Bookbox = (props) => {
             >
               View
             </Button>
-            <Button
-              variant="outlined"
-              color="secondary"
-              target="_blank"
-              onClick={handleSaveOnClick}
-              data={JSON.stringify(props)}
-            >
-              Save
-            </Button>
+            {props.isSearch ? (
+              <Button
+                variant="outlined"
+                color="secondary"
+                target="_blank"
+                onClick={handleSaveOnClick}
+                data={JSON.stringify(props)}
+              >
+                Save
+              </Button>
+            ) : (
+              <Button
+                variant="outlined"
+                color="secondary"
+                target="_blank"
+                onClick={handleDeleteOnClick}
+                id={props._id}
+              >
+                Delete
+              </Button>
+            )}
           </div>
         </div>
 

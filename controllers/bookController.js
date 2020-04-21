@@ -21,13 +21,20 @@ exports.createBook = async (req, res, next) => {
 };
 
 exports.deleteBook = async (req, res, next) => {
-  const result = await Book.findByIdAndDelete(req.params.id);
+  try {
+    await Book.findByIdAndDelete(req.params.id);
+  } catch (err) {
+    console.log("🚨 ERROR!", err);
 
-  if (!result) {
-    // error handling : 404, No book found with that id.
+    res.status(500).json({
+      status: "Error",
+      message: `Error occurred while deleting a book: ${req.params.id}`,
+    });
   }
+
   res.status(204).json({
     status: "success",
+    message: `successfully deleted the book! ${req.params.id}`,
     data: null,
   });
 };

@@ -4,9 +4,9 @@ import Bookswrapper from "../bookswrapper/bookswrapper.component";
 import useFetch from "../../util/useFetch";
 import Bookbox from "../bookbox/bookbox.component";
 
-const ContentBox = ({ isSearch, searchQueryInit }) => {
+const ContentBox = ({ isSearch }) => {
   //! State
-  const [searchQuery, setSearchQuery] = useState(searchQueryInit);
+  const [searchQuery, setSearchQuery] = useState("");
   const [fetchUrl, setFetchUrl] = useState(null);
 
   //! Dinamically renders <Searchbox> based on pages("/" or "/saved").
@@ -67,7 +67,7 @@ const ContentBox = ({ isSearch, searchQueryInit }) => {
         {/* Cases: 1.search page with no data 2.search page with query result, 3.saved page */}
         {isSearch && data
           ? uniqueBooksArr.map((book) => (
-              <Bookbox key={book.id} {...book.volumeInfo} />
+              <Bookbox key={book.id} {...book.volumeInfo} isSearch />
             ))
           : !isSearch && data
           ? data.items.map((book) => (
