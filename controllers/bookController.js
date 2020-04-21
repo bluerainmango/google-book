@@ -1,7 +1,17 @@
 const Book = require("../models/bookModel");
 
 exports.getAllbooks = async (req, res, next) => {
-  const books = await Book.find();
+  let books = [];
+
+  try {
+    books = await Book.find();
+  } catch (err) {
+    res.status(500).json({
+      status: "Error",
+      message: "Error occurred while getting all books",
+      items: null,
+    });
+  }
 
   res.status(200).json({
     status: "success",
@@ -11,7 +21,19 @@ exports.getAllbooks = async (req, res, next) => {
 };
 
 exports.createBook = async (req, res, next) => {
-  const newBook = await Book.create(req.body);
+  let newBook = {};
+
+  try {
+    newBook = await Book.create(req.body);
+  } catch (err) {
+    console.log("🚨 ERROR!", err);
+
+    res.status(500).json({
+      status: "Error",
+      message: "Error occurred while creating a book",
+      data: null,
+    });
+  }
 
   res.status(200).json({
     status: "success",
