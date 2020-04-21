@@ -1,9 +1,32 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
+import axios from "axios";
 
 import "./bookbox.style.scss";
 
 const Bookbox = (props) => {
+  const handleSaveOnClick = async (e) => {
+    const data = e.target.closest("button").getAttribute("data");
+    const {
+      title,
+      authors,
+      description,
+      imageLinks: { thumbnail },
+      infoLink,
+    } = JSON.parse(data);
+
+    // console.log("🍮 data:", filteredData);
+    const result = await axios.post("/api/books", {
+      title,
+      authors,
+      description,
+      image: thumbnail,
+      link: infoLink,
+    });
+
+    console.log(result);
+  };
+
   return (
     <div className="bookbox">
       {console.log("🏉 props", props)}
@@ -11,8 +34,8 @@ const Bookbox = (props) => {
       <img
         style={{ width: "128px" }}
         src={
-          props.imageLinks
-            ? props.imageLinks.thumbnail
+          props.imageLinks || props.image
+            ? props.imageLinks.thumbnail || props.image
             : "https://books.google.com/googlebooks/images/no_cover_thumb.gif"
         }
       ></img>
@@ -21,10 +44,10 @@ const Bookbox = (props) => {
           <p className="bookbox-title">
             <span className="bookbox-title--main">{props.title}</span>
             {props.authors && (
-              <span>
+              <span className="bookbox-authors">
                 {`Written By `}
                 {props.authors.map((author, i, arr) => (
-                  <span key={`${props.infoLink}-${i}`}>
+                  <span key={`${props.infoLink || props.link}-${i}`}>
                     {i !== arr.length - 1 ? `${author}, ` : `${author}`}
                   </span>
                 ))}
@@ -35,7 +58,7 @@ const Bookbox = (props) => {
             <Button
               variant="outlined"
               color="primary"
-              href={props.infoLink}
+              href={props.infoLink || props.link}
               target="_blank"
             >
               View
@@ -43,8 +66,9 @@ const Bookbox = (props) => {
             <Button
               variant="outlined"
               color="secondary"
-              href={props.infoLink}
               target="_blank"
+              onClick={handleSaveOnClick}
+              data={JSON.stringify(props)}
             >
               Save
             </Button>

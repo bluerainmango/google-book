@@ -20,6 +20,8 @@ const ContentBox = ({ isSearch }) => {
     return isSearch && <Searchbox onChange={setSearchQuery} />;
   }, [isSearch]);
 
+  const handleSaveBook = async () => {};
+
   //! Fetch book data from google or mongoDB
   useEffect(() => {
     if (searchQuery) {

@@ -13,8 +13,8 @@ const bookSchema = new mongoose.Schema(
     },
     authors: [String],
     description: { type: String, trim: true },
-    image: [String],
-    link: { type: String, trin: true },
+    image: String,
+    link: { type: String, trim: true },
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
