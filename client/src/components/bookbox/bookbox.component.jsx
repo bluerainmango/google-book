@@ -1,10 +1,23 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
 import axios from "axios";
-
+import Button from "@material-ui/core/Button";
+import Snackbar from "@material-ui/core/Snackbar";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 import "./bookbox.style.scss";
 
 const Bookbox = (props) => {
+  const [open, setOpen] = React.useState(false);
+
+  //* Alert handlers
+  const handleClose = (e, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   //* Save button event handler
   const handleSaveOnClick = async (e) => {
     const data = e.target.closest("button").getAttribute("data");
@@ -25,6 +38,9 @@ const Bookbox = (props) => {
       link: infoLink,
     });
 
+    if (result.data.status === "success") {
+      setOpen(true);
+    }
     // console.log(result);
   };
 
@@ -108,6 +124,28 @@ const Bookbox = (props) => {
 
         <p className="bookbox-desc">{props.description}</p>
       </div>
+      <Snackbar
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+        open={open}
+        autoHideDuration={1000}
+        onClose={handleClose}
+        message="The book is saved!"
+        action={
+          <React.Fragment>
+            <IconButton
+              size="small"
+              aria-label="close"
+              color="inherit"
+              onClick={handleClose}
+            >
+              <CloseIcon fontSize="small" />
+            </IconButton>
+          </React.Fragment>
+        }
+      />
     </div>
   );
 };
