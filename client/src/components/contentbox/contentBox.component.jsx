@@ -8,6 +8,8 @@ const ContentBox = ({ isSearch }) => {
   //! State
   const [searchQuery, setSearchQuery] = useState("");
   const [fetchUrl, setFetchUrl] = useState(null);
+  const [savedBooks, setSavedBooks] = useState([]);
+  const [reloadToggler, setReloadToggler] = useState(false);
 
   //! Dinamically renders <Searchbox> based on pages("/" or "/saved").
   const searchboxAccessory = useMemo(() => {
@@ -26,7 +28,6 @@ const ContentBox = ({ isSearch }) => {
 
     //* 2. Saved page with MongoDB data
     if (!isSearch) {
-      // setFetchUrl(`/api/books`);
       setFetchUrl(`/api/books`);
       setSearchQuery("");
     }
@@ -35,11 +36,15 @@ const ContentBox = ({ isSearch }) => {
     if (isSearch && !searchQuery) {
       setFetchUrl("");
     }
-  }, [searchQuery, isSearch]);
+  }, [searchQuery, isSearch, reloadToggler]);
 
   //! Fetch data
-  const data = useFetch(fetchUrl);
+  const data = useFetch(fetchUrl, reloadToggler);
   // console.log("🥰data", data);
+
+  // if(fetchUrl === `/api/books`){
+  //   setSavedBooks(data.items)
+  // }
 
   //! Filter out duplicated book for searched books
   let uniqueBooksArr = [];
@@ -76,7 +81,13 @@ const ContentBox = ({ isSearch }) => {
             ))
           : !isSearch && data
           ? data.items.map((book, i) => (
-              <Bookbox key={`saved-${book.id}-${i}`} id={book.id} {...book} />
+              <Bookbox
+                key={`saved-${book.id}-${i}`}
+                id={book.id}
+                {...book}
+                reloadToggler={reloadToggler}
+                setReloadToggler={setReloadToggler}
+              />
             ))
           : ""}
       </Bookswrapper>

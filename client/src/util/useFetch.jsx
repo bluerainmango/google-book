@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 //! Fetch data or return null
-const useFetch = (url) => {
+const useFetch = (url, reFetchToggle) => {
   const [data, setData] = useState("");
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const useFetch = (url) => {
       //* When url doesn't exists
       setData(null);
     }
-  }, [url]);
+  }, [url, reFetchToggle]);
 
   return data;
 };

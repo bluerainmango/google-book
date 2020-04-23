@@ -32,10 +32,14 @@ const Bookbox = (props) => {
   const handleDeleteOnClick = async (e) => {
     const id = e.target.closest("button").getAttribute("id");
     // console.log("🍭", id);
-    const result = await axios.delete(`/api/books/${id}`);
+    await axios.delete(`/api/books/${id}`);
 
-    // console.log(result);
-    window.location.reload();
+    //* Reload whole page
+    // window.location.reload();
+
+    //* Refresh data without reloading whole page
+    // console.log("🐹reloadToggler:", props.reloadToggler);
+    props.setReloadToggler(!props.reloadToggler);
   };
 
   return (
