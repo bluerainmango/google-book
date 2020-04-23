@@ -12,10 +12,13 @@ const useStyles = makeStyles((theme) => ({
     padding: "2px 4px",
     display: "flex",
     alignItems: "center",
-    "max-width": "79.7%",
-    margin: "20px auto",
+    "max-width": "60%",
+    margin: "30px auto",
     background: "linear-gradient(90deg, #3a47d5 0%, #00d2ff 100%) !important",
-    // transform: "translateY(50%)",
+    boxShadow: `5px 5px 0px 0px #289fed, 10px 10px 0px 0px #5fb8ff,
+    15px 15px 0px 0px #a1d8ff, 20px 20px 0px 0px #cae6ff,
+    25px 25px 0px 0px #e1eeff, 5px 5px 15px 5px rgba(0, 0, 0, 0);`,
+    transform: "translateX(-25px)",
   },
   input: {
     marginLeft: theme.spacing(1),
@@ -47,10 +50,14 @@ export default function CustomizedInputBase(props) {
 
   console.log("⚽️", props);
   return (
-    <Paper component="form" className={classes.root} onSubmit={handleSubmit}>
+    <Paper
+      component="form"
+      className={`${classes.root} searchbox`}
+      onSubmit={handleSubmit}
+    >
       <InputBase
         className={classes.input}
-        placeholder="What do you feel to search today? 💭"
+        placeholder="What do you feel to search? 💭"
         inputProps={{ "aria-label": "search books", autoFocus: true }}
       />
 
