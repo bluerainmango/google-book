@@ -8,7 +8,6 @@ const ContentBox = ({ isSearch }) => {
   //! State
   const [searchQuery, setSearchQuery] = useState("");
   const [fetchUrl, setFetchUrl] = useState(null);
-  const [savedBooks, setSavedBooks] = useState([]);
   const [reloadToggler, setReloadToggler] = useState(false);
 
   //! Dinamically renders <Searchbox> based on pages("/" or "/saved").
