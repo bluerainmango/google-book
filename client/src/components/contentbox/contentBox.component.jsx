@@ -67,12 +67,16 @@ const ContentBox = ({ isSearch }) => {
       <Bookswrapper title={"title"} accessory={searchboxAccessory} books={data}>
         {/* Cases: 1.search page with no data 2.search page with query result, 3.saved page */}
         {isSearch && data
-          ? uniqueBooksArr.map((book) => (
-              <Bookbox key={book.id} {...book.volumeInfo} isSearch />
+          ? uniqueBooksArr.map((book, i) => (
+              <Bookbox
+                key={`searched-${book.id}-${i}`}
+                {...book.volumeInfo}
+                isSearch
+              />
             ))
           : !isSearch && data
-          ? data.items.map((book) => (
-              <Bookbox key={book.id} id={book.id} {...book} />
+          ? data.items.map((book, i) => (
+              <Bookbox key={`saved-${book.id}-${i}`} id={book.id} {...book} />
             ))
           : ""}
       </Bookswrapper>
