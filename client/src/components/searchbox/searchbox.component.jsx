@@ -42,13 +42,13 @@ export default function CustomizedInputBase(props) {
 
     props.onChange(e.currentTarget.elements[0].value);
 
-    console.log(
-      "🏓inside handle submit value",
-      e.currentTarget.elements[0].value
-    );
+    // console.log(
+    //   "🏓inside handle submit value",
+    //   e.currentTarget.elements[0].value
+    // );
   };
 
-  console.log("⚽️", props);
+  // console.log("⚽️", props);
   return (
     <Paper
       component="form"

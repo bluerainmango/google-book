@@ -76,9 +76,13 @@
       // margin: 5px;
       margin-top: -9px;
       margin-right: 4px;
-      width: 140px;
+      // width: 140px;
       display: flex;
       justify-content: space-between;
+
+      > * {
+        margin: 4px;
+      }
     }
 
     .bookbox-desc {

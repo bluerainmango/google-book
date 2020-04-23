@@ -25,22 +25,22 @@ const Bookbox = (props) => {
       link: infoLink,
     });
 
-    console.log(result);
+    // console.log(result);
   };
 
   //* Delete button event handler
   const handleDeleteOnClick = async (e) => {
     const id = e.target.closest("button").getAttribute("id");
-    console.log("🍭", id);
+    // console.log("🍭", id);
     const result = await axios.delete(`/api/books/${id}`);
 
-    console.log(result);
+    // console.log(result);
     window.location.reload();
   };
 
   return (
     <div className="bookbox">
-      {console.log("🏉 props", props)}
+      {/* {console.log("🏉 props", props)} */}
       <img
         style={{ width: "128px" }}
         src={

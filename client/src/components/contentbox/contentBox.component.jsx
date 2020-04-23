@@ -26,6 +26,7 @@ const ContentBox = ({ isSearch }) => {
 
     //* 2. Saved page with MongoDB data
     if (!isSearch) {
+      // setFetchUrl(`/api/books`);
       setFetchUrl(`/api/books`);
       setSearchQuery("");
     }
@@ -38,7 +39,7 @@ const ContentBox = ({ isSearch }) => {
 
   //! Fetch data
   const data = useFetch(fetchUrl);
-  console.log("🥰data", data);
+  // console.log("🥰data", data);
 
   //! Filter out duplicated book for searched books
   let uniqueBooksArr = [];
@@ -53,7 +54,7 @@ const ContentBox = ({ isSearch }) => {
 
   return (
     <div>
-      {console.log(
+      {/* {console.log(
         "🥜isSearch:",
         isSearch,
         "data:",
@@ -62,7 +63,7 @@ const ContentBox = ({ isSearch }) => {
         searchQuery,
         "fetchUrl:",
         fetchUrl
-      )}
+      )} */}
       <Bookswrapper title={"title"} accessory={searchboxAccessory} books={data}>
         {/* Cases: 1.search page with no data 2.search page with query result, 3.saved page */}
         {isSearch && data

@@ -2,12 +2,14 @@ const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
 const path = require("path");
+const cors = require("cors");
 
 const bookController = require("./controllers/bookController");
 
 const PORT = process.env.PORT || 3000;
 const app = express();
 
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
