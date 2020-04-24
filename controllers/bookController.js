@@ -1,5 +1,6 @@
 const Book = require("../models/bookModel");
 
+//! Get all saved books
 exports.getAllbooks = async (req, res, next) => {
   let books = [];
 
@@ -21,28 +22,39 @@ exports.getAllbooks = async (req, res, next) => {
   });
 };
 
+//! Save a book to DB
 exports.createBook = async (req, res, next) => {
   let newBook = {};
 
   try {
     newBook = await Book.create(req.body);
+
+    res.status(200).json({
+      status: "success",
+      message: "successfully created a new book!",
+      data: newBook,
+    });
   } catch (err) {
     console.log("🚨 ERROR!", err);
 
-    res.status(500).json({
-      status: "Error",
-      message: "Error occurred while creating a book",
-      data: null,
-    });
+    // MongoDB error: duplicated data for unique field
+    if (err.code === 11000) {
+      res.status(400).json({
+        status: "Fail",
+        code: "duplicated Book",
+        message: "🚨 Fail! The same book already exists!",
+      });
+    } else {
+      res.status(500).json({
+        status: "Error",
+        message: "Error occurred while creating a book",
+        data: null,
+      });
+    }
   }
-
-  res.status(200).json({
-    status: "success",
-    message: "successfully created a new book!",
-    data: newBook,
-  });
 };
 
+//! Delete a book from DB
 exports.deleteBook = async (req, res, next) => {
   try {
     await Book.findByIdAndDelete(req.params.id);

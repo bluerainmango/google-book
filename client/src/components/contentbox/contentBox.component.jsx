@@ -31,7 +31,7 @@ const ContentBox = ({ isSearch }) => {
       setSearchQuery("");
     }
 
-    //* 3. Search page with no search result(when returning back to search page from saved page)
+    //* 3. Search page with no search result(reset when returning back to search page from saved page)
     if (isSearch && !searchQuery) {
       setFetchUrl("");
     }
@@ -40,10 +40,6 @@ const ContentBox = ({ isSearch }) => {
   //! Fetch data
   const data = useFetch(fetchUrl, reloadToggler);
   // console.log("🥰data", data);
-
-  // if(fetchUrl === `/api/books`){
-  //   setSavedBooks(data.items)
-  // }
 
   //! Filter out duplicated book for searched books
   let uniqueBooksArr = [];
@@ -69,12 +65,13 @@ const ContentBox = ({ isSearch }) => {
         fetchUrl
       )} */}
       <Bookswrapper title={"title"} accessory={searchboxAccessory} books={data}>
-        {/* Cases: 1.search page with no data 2.search page with query result, 3.saved page */}
+        {/* Cases: 1.Search page with query result, 2.Saved page 3.Search page with no data */}
         {isSearch && data
           ? uniqueBooksArr.map((book, i) => (
               <Bookbox
                 key={`searched-${book.id}-${i}`}
                 {...book.volumeInfo}
+                gbID={book.id}
                 isSearch
               />
             ))

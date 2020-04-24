@@ -8,6 +8,7 @@ import "./bookbox.style.scss";
 
 const Bookbox = (props) => {
   const [open, setOpen] = React.useState(false);
+  const [message, setMessage] = React.useState("");
 
   //* Alert handlers
   const handleClose = (e, reason) => {
@@ -27,21 +28,37 @@ const Bookbox = (props) => {
       description,
       imageLinks: { thumbnail },
       infoLink,
+      gbID,
     } = JSON.parse(data);
 
-    // console.log("🍮 data:", filteredData);
-    const result = await axios.post("/api/books", {
-      title,
-      authors,
-      description,
-      image: thumbnail,
-      link: infoLink,
-    });
+    // console.log("🍮 data:", JSON.parse(data), gbID);
 
-    if (result.data.status === "success") {
-      setOpen(true);
+    //* Save a book to DB
+    try {
+      const result = await axios.post("/api/books", {
+        title,
+        authors,
+        description,
+        image: thumbnail,
+        link: infoLink,
+        gbID,
+      });
+
+      // console.log("🐭 create a book result: ", result);
+
+      //* Set a popup message for user feedback
+      if (result.data.status === "success") {
+        setMessage("📚 The book is saved!");
+        setOpen(true);
+      }
+    } catch (err) {
+      // console.log("🐭 create a book result(err):", err.response.data);
+
+      if (err.response.data.code === "duplicated Book") {
+        setMessage(err.response.data.message);
+        setOpen(true);
+      }
     }
-    // console.log(result);
   };
 
   //* Delete button event handler
@@ -130,9 +147,9 @@ const Bookbox = (props) => {
           horizontal: "center",
         }}
         open={open}
-        autoHideDuration={1000}
+        autoHideDuration={1500}
         onClose={handleClose}
-        message="The book is saved!"
+        message={message}
         action={
           <React.Fragment>
             <IconButton

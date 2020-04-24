@@ -15,6 +15,10 @@ const bookSchema = new mongoose.Schema(
     description: { type: String, trim: true },
     image: String,
     link: { type: String, trim: true },
+    gbID: {
+      type: String,
+      unique: true,
+    },
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
