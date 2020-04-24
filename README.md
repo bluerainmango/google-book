@@ -19,4 +19,4 @@ Search and save your books so that you can read or purchase later.
 
 ## ✨ Demo
 
-![screenshot](/demo.gif)
+![screenshot](/demo2.gif)
