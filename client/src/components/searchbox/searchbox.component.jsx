@@ -57,7 +57,7 @@ export default function CustomizedInputBase(props) {
     >
       <InputBase
         className={classes.input}
-        placeholder="What do you feel to search? 💭"
+        placeholder="What would you like to search?💭"
         inputProps={{ "aria-label": "search books", autoFocus: true }}
       />
 
