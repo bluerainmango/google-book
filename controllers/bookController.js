@@ -17,6 +17,7 @@ exports.getAllbooks = async (req, res, next) => {
     status: "success",
     message: "Successfully got all books",
     items: books,
+    type: "savedBooks",
   });
 };
 

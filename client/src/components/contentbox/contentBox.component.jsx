@@ -78,7 +78,7 @@ const ContentBox = ({ isSearch }) => {
                 isSearch
               />
             ))
-          : !isSearch && data
+          : !isSearch && data && data.type
           ? data.items.map((book, i) => (
               <Bookbox
                 key={`saved-${book.id}-${i}`}
