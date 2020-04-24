@@ -18,6 +18,7 @@ const bookSchema = new mongoose.Schema(
     gbID: {
       type: String,
       unique: true,
+      required: [true, "A book must have a gbID"],
     },
   },
   { toJSON: { virtuals: true }, toObject: { virtuals: true } }
