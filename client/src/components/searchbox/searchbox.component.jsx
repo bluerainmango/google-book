@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
@@ -36,6 +36,26 @@ const useStyles = makeStyles((theme) => ({
 export default function CustomizedInputBase(props) {
   const classes = useStyles();
 
+  const [showPlaceholder, setShowPlaceholder] = useState(true);
+
+  const measureWidth = (e) => {
+    const w =
+      window.innerWidth ||
+      document.documentElement.clientWidth ||
+      document.body.clientWidth;
+
+    w >= 500 ? setShowPlaceholder(true) : setShowPlaceholder(false);
+  };
+
+  useEffect(() => {
+    measureWidth();
+    window.addEventListener("resize", measureWidth);
+
+    return () => {
+      window.removeEventListener("resize", measureWidth);
+    };
+  }, []);
+
   //* Set search query to parent comp(contentBox) only when the form is submitted
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -55,9 +75,10 @@ export default function CustomizedInputBase(props) {
       className={`${classes.root} searchbox`}
       onSubmit={handleSubmit}
     >
+      {console.log("width:", showPlaceholder)}
       <InputBase
         className={classes.input}
-        placeholder="What would you like to search?💭"
+        placeholder={showPlaceholder ? "What would you like to search?💭" : ""}
         inputProps={{ "aria-label": "search books", autoFocus: true }}
       />
 
